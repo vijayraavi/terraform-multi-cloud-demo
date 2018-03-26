@@ -30,7 +30,7 @@ resource "aws_security_group" "subnet" {
 
 // Azure Network Resources
 resource "azurerm_resource_group" "azy-example-three-resource-group" {
-  name     = "acceptanceTestResourceGroup1"
+  name     = "blueland-resource-group"
   location = "West US"
 }
 
