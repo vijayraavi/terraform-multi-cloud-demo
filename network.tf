@@ -13,20 +13,22 @@ resource "aws_vpc" "new_vpc_example_three" {
   }
 }
 
-data "aws_subnet" "selected" {
-  id = "${aws_vpc.new_vpc_example_three.id}"
-}
-
-resource "aws_security_group" "subnet" {
-  vpc_id = "${data.aws_subnet.selected.vpc_id}"
-
-  ingress {
-    cidr_blocks = ["${data.aws_subnet.selected.cidr_block}"]
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-  }
-}
+//data "aws_subnet" "selected" {
+//  id = "${aws_vpc.new_vpc_example_three.id}"
+//}
+//
+//resource "aws_security_group" "subnet" {
+//  vpc_id = "${data.aws_subnet.selected.vpc_id}"
+//
+//  vpc_id = "${aws_vpc.new_vpc_example_three.id}"
+//
+//  ingress {
+//    cidr_blocks = ["${data.aws_subnet.selected.cidr_block}"]
+//    from_port   = 80
+//    to_port     = 80
+//    protocol    = "tcp"
+//  }
+//}
 
 // Azure Network Resources
 resource "azurerm_resource_group" "azy-example-three-resource-group" {

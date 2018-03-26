@@ -18,9 +18,9 @@ variable dns_servers {
 variable subnet_names {
   type = "map"
   default = {
-    subnet1 = "subnetone"
-    subnet2 = "subnettwo"
-    subnet3 = "subnetthree"
+    subnet1 = "subnet1"
+    subnet2 = "subnet2"
+    subnet3 = "subnet3"
   }
 }
 
