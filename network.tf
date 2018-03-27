@@ -27,7 +27,7 @@ resource "aws_security_group" "subnet" {
 // Azure Network Resources
 resource "azurerm_resource_group" "blue_world_terraforming" {
   name     = "blueland-resource-group"
-  location = "West US 2"
+  location = "West US 1"
 }
 
 resource "azurerm_network_security_group" "azy-example-three-security-group" {
