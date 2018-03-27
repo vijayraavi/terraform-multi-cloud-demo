@@ -1,10 +1,3 @@
-// Google Compute Platform Variables
-variable network_name {
-  default = "defaultsetbutoverwritten"
-  type = "string"
-  description = "Just the network name for the Google Compute Platform."
-}
-
 // Azure Variables
 variable subscription_id {}
 variable client_id {}
@@ -33,9 +26,41 @@ variable subnet_address_prefixes {
   }
 }
 
+variable "linux_admin_username" {
+  type        = "string"
+  description = "User name for authentication to the Kubernetes linux agent virtual machines in the cluster."
+}
+
+variable "linux_admin_password" {
+  type ="string"
+  description = "The password for the Linux admin account."
+}
+
+variable "ssh_key" {
+  type = "string"
+  description = "SSH Key for Kubernetes Clusters."
+}
+
+variable "azure_node_count" {
+  type = "string"
+  description = "Count of cluster instances to start."
+}
+
+variable "azure_cluster_prefix" {
+  type = "string"
+  description = "The prefix for the Azure cluster."
+}
+
 // Amazon Web Services Variables
 variable vpc_name {
   default = "thisisthevpcname"
   type = "string"
   description = "Just the VPC name for the Amazon Web Services."
+}
+
+// Google Compute Platform Variables
+variable network_name {
+  default = "defaultsetbutoverwritten"
+  type = "string"
+  description = "Just the network name for the Google Compute Platform."
 }

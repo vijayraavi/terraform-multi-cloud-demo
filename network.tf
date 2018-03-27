@@ -5,7 +5,7 @@ resource "google_compute_network" "our_development_network" {
 }
 
 // Amazon Web Services Resources
-resource "aws_vpc" "new_vpc_example_three" {
+resource "aws_vpc" "new_vpc_environment" {
   cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
   tags {
@@ -13,38 +13,32 @@ resource "aws_vpc" "new_vpc_example_three" {
   }
 }
 
-//data "aws_subnet" "selected" {
-//  id = "${aws_vpc.new_vpc_example_three.id}"
-//}
-//
-//resource "aws_security_group" "subnet" {
-//  vpc_id = "${data.aws_subnet.selected.vpc_id}"
-//
-//  vpc_id = "${aws_vpc.new_vpc_example_three.id}"
-//
-//  ingress {
-//    cidr_blocks = ["${data.aws_subnet.selected.cidr_block}"]
-//    from_port   = 80
-//    to_port     = 80
-//    protocol    = "tcp"
-//  }
-//}
+resource "aws_security_group" "subnet" {
+  vpc_id = "${aws_vpc.new_vpc_environment.id}"
+
+  ingress {
+    cidr_blocks = ["${aws_vpc.new_vpc_environment.cidr_block}"]
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+  }
+}
 
 // Azure Network Resources
-resource "azurerm_resource_group" "azy-example-three-resource-group" {
+resource "azurerm_resource_group" "blue_world_terraforming" {
   name     = "blueland-resource-group"
   location = "West US"
 }
 
 resource "azurerm_network_security_group" "azy-example-three-security-group" {
   name                = "acceptanceTestSecurityGroup1"
-  location            = "${azurerm_resource_group.azy-example-three-resource-group.location}"
-  resource_group_name = "${azurerm_resource_group.azy-example-three-resource-group.name}"
+  location            = "${azurerm_resource_group.blue_world_terraforming.location}"
+  resource_group_name = "${azurerm_resource_group.blue_world_terraforming.name}"
 }
 
 resource "azurerm_virtual_network" "azy-example-three-virtual-network" {
   name                = "virtualNetwork1"
-  resource_group_name = "${azurerm_resource_group.azy-example-three-resource-group.name}"
+  resource_group_name = "${azurerm_resource_group.blue_world_terraforming.name}"
   address_space       = ["10.0.0.0/16"]
   location            = "West US"
   dns_servers         = "${var.dns_servers}"
