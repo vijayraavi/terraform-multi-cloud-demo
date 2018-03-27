@@ -27,7 +27,7 @@ resource "aws_security_group" "subnet" {
 // Azure Network Resources
 resource "azurerm_resource_group" "blue_world_terraforming" {
   name     = "blueland-resource-group"
-  location = "West US"
+  location = "West US 2"
 }
 
 resource "azurerm_network_security_group" "azy-example-three-security-group" {
@@ -46,20 +46,23 @@ resource "azurerm_virtual_network" "azy-example-three-virtual-network" {
   subnet {
     name           = "${var.subnet_names["subnet1"]}"
     address_prefix = "${var.subnet_address_prefixes["subnet1"]}"
+    security_group = "${azurerm_network_security_group.azy-example-three-security-group.id}"
   }
 
   subnet {
     name           = "${var.subnet_names["subnet2"]}"
     address_prefix = "${var.subnet_address_prefixes["subnet2"]}"
-  }
-
-  subnet {
-    name           = "${var.subnet_names["subnet3"]}"
-    address_prefix = "${var.subnet_address_prefixes["subnet3"]}"
     security_group = "${azurerm_network_security_group.azy-example-three-security-group.id}"
   }
 
   tags {
     environment = "Production-one"
   }
+}
+
+resource "azurerm_subnet" "subnet_three" {
+  name                 = "${var.subnet_names["subnet3"]}"
+  resource_group_name  = "${azurerm_resource_group.blue_world_terraforming.name}"
+  virtual_network_name = "${azurerm_virtual_network.azy-example-three-virtual-network.name}"
+  address_prefix       = "10.0.1.0/24"
 }

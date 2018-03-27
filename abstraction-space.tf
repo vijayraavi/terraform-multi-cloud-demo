@@ -7,7 +7,7 @@
 
    master_profile {
      count = 1
-     dns_prefix = "acs_${var.azure_cluster_prefix}"
+     dns_prefix = "acs${var.azure_cluster_prefix}"
    }
 
    linux_profile {
@@ -44,7 +44,7 @@
    location               = "${azurerm_resource_group.blue_world_terraforming.location}"
    resource_group_name    = "${azurerm_resource_group.blue_world_terraforming.name}"
    kubernetes_version     = "1.8.2"
-   dns_prefix             = "aks_${var.azure_cluster_prefix}"
+   dns_prefix             = "aks${var.azure_cluster_prefix}"
 
    linux_profile {
      admin_username = "${var.linux_admin_username}"
