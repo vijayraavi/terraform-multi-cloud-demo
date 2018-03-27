@@ -13,6 +13,24 @@ resource "aws_vpc" "new_vpc_environment" {
   }
 }
 
+resource "aws_subnet" "subnet1" {
+  vpc_id = "${aws_vpc.new_vpc_environment.id}"
+  availability_zone = "us-west-2b"
+  cidr_block = "${cidrsubnet(aws_vpc.new_vpc_environment.cidr_block, 4, 1)}"
+}
+
+resource "aws_subnet" "subnet2" {
+  vpc_id = "${aws_vpc.new_vpc_environment.id}"
+  availability_zone = "us-west-2a"
+  cidr_block = "${cidrsubnet(aws_vpc.new_vpc_environment.cidr_block, 3, 1)}"
+}
+
+resource "aws_subnet" "subnet3" {
+  vpc_id = "${aws_vpc.new_vpc_environment.id}"
+  availability_zone = "us-west-2c"
+  cidr_block = "${cidrsubnet(aws_vpc.new_vpc_environment.cidr_block, 2, 1)}"
+}
+
 resource "aws_security_group" "subnet" {
   vpc_id = "${aws_vpc.new_vpc_environment.id}"
 
@@ -27,7 +45,7 @@ resource "aws_security_group" "subnet" {
 // Azure Network Resources
 resource "azurerm_resource_group" "blue_world_terraforming" {
   name     = "blueland-resource-group"
-  location = "West US 1"
+  location = "East US"
 }
 
 resource "azurerm_network_security_group" "azy-example-three-security-group" {
@@ -40,7 +58,7 @@ resource "azurerm_virtual_network" "azy-example-three-virtual-network" {
   name                = "virtualNetwork1"
   resource_group_name = "${azurerm_resource_group.blue_world_terraforming.name}"
   address_space       = ["10.0.0.0/16"]
-  location            = "West US"
+  location = "East US"
   dns_servers         = "${var.dns_servers}"
 
   subnet {
@@ -64,5 +82,5 @@ resource "azurerm_subnet" "subnet_three" {
   name                 = "${var.subnet_names["subnet3"]}"
   resource_group_name  = "${azurerm_resource_group.blue_world_terraforming.name}"
   virtual_network_name = "${azurerm_virtual_network.azy-example-three-virtual-network.name}"
-  address_prefix       = "10.0.1.0/24"
+  address_prefix = "${var.subnet_address_prefixes["subnet3"]}"
 }
