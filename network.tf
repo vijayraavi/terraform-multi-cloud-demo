@@ -60,6 +60,6 @@ resource "azurerm_virtual_network" "azy-example-three-virtual-network" {
   }
 
   tags {
-    environment = "Production-example-three"
+    environment = "Production-one"
   }
 }

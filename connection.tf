@@ -14,3 +14,11 @@ provider "azurerm" {
   client_secret   = "${var.client_secret}"
   tenant_id       = "${var.tenant_id}"
 }
+
+provider "vsphere" {
+  user           = "admin_account"
+  password       = "secret_password"
+  vsphere_server = "server_uri_for_the_sphere"
+  # Because Seattle Sea Sound Transit Authority has a self-signed cert
+  allow_unverified_ssl = true
+}
